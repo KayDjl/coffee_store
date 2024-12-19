@@ -1,0 +1,656 @@
+:root {
+    --bg-color: #fff;
+    --text-color: #6c757d;
+    --accent-color: #7e481c;
+    --contrast-color: #3d464d;
+    --red-color: #FF0000;
+    --gray-color: #ccc;
+    --beg-color: #FDF6E3;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    min-width: 320px;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+.color-accent {
+    color: var(--accent-color);
+}
+
+.btn-color-accent {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.btn-color-accent:hover {
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+}
+
+.btn-outline-warning {
+    border-color: var(--accent-color);
+}
+
+.btn-outline-contrast {
+    border-color: var(--contrast-color);
+}
+
+.section-title {
+    position: relative;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.section-title span {
+    background-color: var(--bg-color);
+    padding-right: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.form-control:focus {
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    box-shadow: none;
+}
+
+.form-control::placeholder{
+    color: var(--gray-color);
+}
+
+.bg-deng-color {
+    background-color: var(--beg-color);
+}
+
+
+/* ====================================== GENERAL ====================================== */
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main.main {
+    flex: 1 1 auto;
+}
+
+/* ====================================== GENERAL ====================================== */
+
+/* ====================================== HEADER-TOP ====================================== */
+
+
+.btn-group .btn-register2 {
+    text-decoration: none;
+}
+
+.btn-group .btn-register2:hover {
+    color: var(--accent-color);
+}
+
+.btn-group .btn-register {
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--accent-color);
+    padding: 0.5rem;
+    border-width: 2px 4px;
+    border-radius: 40px;
+}
+
+.btn-group .btn-register:hover {
+    background-color: var(--contrast-color);
+}
+
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+.navbar-nav .dropdown-menu a:active {
+    background-color: var(--accent-color);
+}
+
+
+
+.header-top .navbar,
+.header-top .navbar .dropdown-menu {
+    background-color: #FDF6E3 !important;
+}
+
+.header-top .navbar .nav-link.active {
+    color: var(--accent-color);
+}
+
+.header-top .navbar .nav-link:hover {
+    color: var(--accent-color);
+
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+
+.navbar-logo:hover {
+    color: var(--contrast-color);
+}
+
+
+/* ====================================== HEADER-TOP ====================================== */
+
+/* ====================================== OFFCANVAS ====================================== */
+.offcanvas-title{
+    color: var(--accent-color);
+}
+
+/* ====================================== OFFCANVAS ====================================== */
+
+
+
+/* ====================================== MAIN ====================================== */
+
+.modal-btn {
+    height: 50px;
+    width: 50px;
+    border: 0;
+    color: var(--accent-color);
+}
+
+.modal-btn:hover {
+    background-color: var(--bg-color);
+    color: var(--contrast-color);
+}
+
+ 
+.modal-btn:active {
+    background-color: var(--bg-color);
+    color: var(--contrast-color);
+}
+
+.modal-table a {
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+}
+
+.modal-table img {
+    max-width: 100px;
+    border-radius: 10%;
+}
+
+.modal-table .product-img-td {
+    max-width: 70px;
+    text-align: center;
+}
+
+.modal-table td {
+    text-align: center;
+}
+
+.danger-btn {
+    border: 0;
+    color: var(--red-color);
+    padding: 0;
+}
+
+.modal-title {
+    color: var(--accent-color);
+}
+
+.danger-btn:hover {
+    background-color: var(--bg-color);
+    color: var(--red-color);
+}
+
+.danger-btn:active{
+    background-color: var(--bg-color);
+}
+
+.btn-modal-cart button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.btn-modal-cart button:hover {
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+}
+
+
+
+
+.category-coffe ul {
+    display: flex; /* Используем Flexbox для расположения элементов в строку */
+    padding: 0; /* Убираем отступы */
+    margin: 0; /* Убираем маргины */
+    list-style: none; /* Убираем маркеры списка */
+
+}
+
+.category-coffe li {
+    display: inline-block; /* Делаем элементы в строку */
+    margin-right: 15px; /* Добавляем отступы между элементами */
+}
+
+.category-coffe a {
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    display: inline-block; /* Ссылки должны быть строчными элементами */
+    padding: 10px 20px; /* Добавляем немного внутреннего отступа для ссылок */
+    background-color: #f0f0f0; /* Пример фона */
+    border-radius: 25px; /* Закругленные углы */
+    transition: background-color 0.3s ease; /* Плавный переход фона */
+}
+
+@media (max-width: 576px) { /* Для разрешений md */
+    .category-coffe ul {
+        overflow-x: auto; /* Включаем горизонтальную прокрутку */
+    }
+
+
+    .category-coffe ul::-webkit-scrollbar {
+        display: none; /* Скрываем полосу прокрутки */
+}
+
+}
+
+.category-coffe a:hover{
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.category-sort a {
+    text-decoration: none;
+}
+
+.product-thumb{
+    text-align: center;
+
+    aspect-ratio: 261 / 327; /* Устанавливаем соотношение сторон */
+    
+}
+
+.product-thumb img {
+    border-radius: 10%;
+    width: 100%;
+    height: 100%;  /* Сохраняем пропорции */
+    object-fit: cover;
+    transition: all .3s;
+}
+
+.product-thumb img:hover {
+    box-shadow: 15px 15px 30px -20px rgba(0, 0, 0, 1.5);
+}
+
+.product-details {
+    margin-top: 15px;
+}
+
+.product-details h4{
+    font-size: 1.2rem;
+}
+
+.product-details h4 a{
+    height: 45px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-decoration: none;
+    transition: all .3s;
+}
+
+.product-details h4 a:hover {
+    color: var(--accent-color);
+}
+
+.product-excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 45px;
+    overflow: hidden;
+}
+
+.product-bottom-details {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(to right, transparent, var(--accent-color), transparent) 1;
+
+}
+
+.product-price {
+    color: var(--accent-color);
+    font-weight: 800;
+    margin-top: 8px;
+    font-size: 24px;
+}
+
+.product-links a{
+    border: 0;
+    color: var(--accent-color);
+}
+
+
+.product-links a:hover{
+    background-color: #fff;
+    color: var(--contrast-color);
+}
+
+@media only screen and (max-width: 991px) {
+    .page-link {
+      padding: 0.5rem 1rem;  /* Увеличиваем отступы для кнопок */
+      font-size: 1.2rem;      /* Увеличиваем размер шрифта */
+    }
+}
+  
+  /* Для экранов sm и ниже (можно добавить если нужно большее увеличение на маленьких экранах) */
+  @media only screen and (max-width: 575px) {
+    .page-link {
+      padding: 0.75rem 1.5rem;  /* Еще большее увеличение отступов */
+      font-size: 1.5rem;        /* Еще большее увеличение шрифта */
+    }
+}
+
+.pagination .page-link {
+    border: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: var(--text-color);
+}
+
+.page-link:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+
+.active > .page-link, 
+.page-link.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff
+}
+
+/* ====================================== MAIN ====================================== */
+
+/* ================================================================Footer================================================================ */
+
+footer {
+    background-color: #FDF6E3;
+    padding: 50px 0;
+    color: #FFF;
+}
+
+footer h4 {
+    color: var(--accent-color);
+    display: flex;
+    justify-content: center;
+}
+
+footer a {
+    color: var(--contrast-color);
+    text-decoration: none;
+    transition: all .3s;
+    display: flex;
+    justify-content: center;
+}
+
+footer a:hover {
+    color: var(--accent-color);
+}
+
+.footer-icons {
+    list-style: none;
+    color: var(--contrast-color);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    font-size: 20px;
+}
+
+.footer-icons li:hover{
+    color: var(--accent-color);
+}
+
+#top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    opacity: 0.5;
+    color: #FFF;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 0;
+    font-size: 25px;
+    transition: all .5s;
+    z-index: 10;
+    display: none;
+}
+
+#top:hover {
+    opacity: 1;
+}
+/* ===================================================Product cart=================================================== */
+
+/* ===================================================Login / Register=================================================== */
+
+.btn-login {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.btn-login:hover {
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+}
+
+/* ===================================================Login / Register=================================================== */
+
+/* ===================================================Product=================================================== */
+
+
+.img-item img{
+    border-radius: 15%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /
+}
+
+
+.table-descript th {
+    padding-left: 0;
+    color: var(--text-color);
+}
+
+.overflow-auto {
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+}
+
+.topings-thumb {
+    text-align: center;
+    border-radius: 15%;
+    margin-bottom: 1rem;
+    
+}
+
+.topings-thumb label {
+    border: 0;
+    background-color: var(--bg-color);
+    border-radius: 15%;
+}
+
+.topings-thumb label:hover {
+    box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
+} 
+.topings-thumb input[type="checkbox"]:checked + .btn {
+    box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
+}
+
+.topings-thumb img {
+    border-radius: 10%;
+    max-height: 70px;
+    object-fit: cover;
+    transition: all .3s;
+    width: 100%
+}
+
+.topings-thumb span {
+    display: block;
+}
+
+.topings-thumb p{
+    white-space: nowrap;
+    font-size: 15px;
+    margin-bottom: 0;
+    text-align: center;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+
+.topings-thumb button:focus {
+    box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
+    
+}
+
+/* ===================================================Product=================================================== */
+
+/* ===================================================Order=================================================== */
+.btn-order:hover {
+    background-color: var(--contrast-color);
+    color: var(--bg-color);
+}
+
+
+/* ===================================================Order=================================================== */
+
+/* ===================================================News=================================================== */
+
+/* .news-form a {
+    text-decoration: none;
+    font-size: 20px;
+}
+.news-form p {
+    margin-top: 5px;
+    font-size: 15px;
+}
+.news-form a:hover {
+    text-decoration:underline
+}
+
+.news-form span {
+    font-size: 15px;
+}
+
+.news-form img {
+    border-radius: 10%;
+    width: 100%;  
+    object-fit: cover;
+    transition: all .3s;
+}
+
+.news-form .news-date i {
+    text-align: center;
+}
+.news-form .news-date .badge {
+    color: var(--text-color);
+    padding-left: 0;
+    padding-top: 0;
+} */
+
+
+.lib-panel {
+    margin-bottom: 20px;
+    padding: 0 20px 0 20px;
+  }
+  
+
+  .lib-panel img {
+    width: 100%;
+    background-color: transparent;
+  }
+  .lib-panel .row,
+  .lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+  }
+  .lib-panel .lib-row {
+    padding: 0 20px 0 20px;
+  }
+  .lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 20px;
+    padding: 10px 20px 0 20px;
+  }
+  .lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #d9d9d9;
+    margin: 7px 0 7px 0;
+  }
+  .lib-panel .lib-row.lib-desc {
+    position: relative;
+    display: block;
+    font-size: 13px;
+  }
+  .lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+  }
+  .row-margin-bottom {
+    margin-bottom: 20px;
+  }
+
+  .lib-panel .lib-row .news-exsept {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .lib-panel .lib-row .news-exsept-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+  }
+/* ===================================================News=================================================== */
+
+.product-review-header{
+    display: flex;
+    justify-content: space-between;
+}

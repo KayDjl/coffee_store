@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 col-lg-4 mb-4 mt-4">
+            <div class="bg-white h-100">
+                <div class="img-item">
+                    <img src="{{ product.image.url }}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 col-lg-8 mb-3">
+            <div class="product-content p-3 h-100">
+                <h1 class="section-title h-3"><span>{{ product.name }}</span></h1>
+                
+                <div class="descript">
+                    <p class="color-accent h5">{{ product.weight }}мл.</p>
+                    <p class="color-accent h5">Состав:</p>
+                    <p>
+                        {{ product.structure }}
+                    </p>
+                    <p class="color-accent h5">Описание:</p>
+                    <p>
+                        {{ product.descriptions }}
+                    </p>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-4 mb-2">
+                        <p class="color-accent h5">КБЖУ(100мл):</p>
+                        <table class="table table-descript">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Калории</th>
+                                    <td class="text-end" id="calories">{{ product.calories }} ккал</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Белки</th>
+                                    <td class="text-end" id="protein">{{ product.protein }} г</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Жиры</th>
+                                    <td class="text-end" id="fats">{{ product.fats }} г</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Углеводы</th>
+                                    <td class="text-end" id="carb">{{ product.carb }} г</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="product-add2cart">
+                            <div class="input-group">
+                                <button class="btn color-accent"><i class="fas fa-shopping-cart"></i>Купить {{ product.price }}р</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 mb-2">
+                        <p class="color-accent h5">Добавки:</p>
+                        <div class="overflow-auto " style="max-height: 200px; padding: 10px;">
+                            <div class="row">
+                                {% for top in topping %}
+                                    <div class="col-4">
+                                        <div class="topings-thumb">
+                                            <input type="checkbox" class="btn-check" name="options" id="option{{ forloop.counter }}" autocomplete="off"
+                                            data-protein="{{ top.protein }}" 
+                                            data-fats="{{ top.fats }}" 
+                                            data-carb="{{ top.carb }}" 
+                                            data-calories="{{ top.calories }}">
+                                            <label class="btn" for="option{{ forloop.counter }}"><img src="{{ top.image.url }}" alt=""></label>
+                                            <p>{{ top.name }}</p>
+                                            <span>{% if top.price > 0 %}{{ top.price }}{% else %}Бесплатно{% endif %}</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer" id="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <h4>Information</h4>
+                <ul class="list-unstyled">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Payment</a></li>
+                    <li><a href="index.html">Delivery</a></li>
+                    <li><a href="index.html">Contacts</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Working hours</h4>
+                <ul class="list-unstyled text-center" style="color: #3d464d;">
+                    <li>Paris, str. Bretan</li>
+                    <li>mon-fri: 9:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Contacts</h4>
+                <ul class="list-unstyled">
+                    <li><a href="tel:1234567890">123-456-7890</a></li>
+                    <li><a href="tel:0987654321">098-765-4321</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Follow us</h4>
+                <ul class="footer-icons">
+                    <li><a href="index.html"></a><i class="fa-brands fa-youtube"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-facebook-f"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-instagram"></i></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

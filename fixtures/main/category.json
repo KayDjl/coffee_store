@@ -1,0 +1,42 @@
+[
+    {
+        "model": "main.categories",
+        "pk": 1,
+        "fields": {
+            "name": "Кофе",
+            "slug": "kofe"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 2,
+        "fields": {
+            "name": "Напитки",
+            "slug": "napitki"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 3,
+        "fields": {
+            "name": "Блюда",
+            "slug": "blyuda"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 4,
+        "fields": {
+            "name": "Десерты",
+            "slug": "deserty"
+        }
+    },
+    {
+        "model": "main.categories",
+        "pk": 5,
+        "fields": {
+            "name": "Все",
+            "slug": "all"
+        }
+    }
+]

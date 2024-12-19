@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% load static %}
+{% load main_tags %}
+
+{% block content %}
+<section class="scroll-menu">
+    <div class="container">
+        <div class="row d=flex justify-content-between mt-3">
+            <div class="category-coffe d-flex align-items-center col-md-12 col-lg-5">
+                <ul class="list-unstyled" id="scrollable">
+                    {% tag_categories as categories %}
+                    {% for categor in categories %}
+                        <li><a href={% url "main:category" categor.slug %}>{{ categor.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="category-sort text-lg-end text-md-start col-md-7 col-lg-6 mt-3">
+                <div class="dropdown" id="sortDropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Сортировать по:
+                    </a>
+
+                    <ul class="list-sort dropdown-menu dropdown-menu-end"
+                        aria-labelledby="dropdownMenuLink">
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default"
+                            {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                            По умолчанию
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" 
+                            {% if request.GET.order_by == 'price' %}checked{% endif %}>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                            От дешевых к дорогим
+                            </label>
+                        </li>
+                        <li class="form-check">
+                            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" 
+                            {% if request.GET.order_by == '-price' %}checked{% endif %}>
+                            <label class="form-check-label" for="flexRadioDefault3">
+                            От дорогих к дешевым
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="all-menu">
+    <div class="container">
+        <div class="row mt-3 mb-4">
+            <div class="col-6">
+                <h2 class="section-title align-items-center">
+                    <span>Все меню</span>
+                </h2>
+            </div>
+            <div class="col-6 d-flex justify-content-end">
+                <button type="button" class=" modal-btn btn" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                </button>
+
+                <!-- Модальное окно -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Корзина</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table modal-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="product-img-td"><a href="prduct.html"><img src="assets/img/products/11.jpg" alt=""></a></td>
+                                            <td><a href="#">Латте</a></td>
+                                            <td>$65</td>
+                                            <td>&times;1</td>
+                                            <td><button class="danger-btn btn btn-lg"><i class="fa-regular fa-circle-xmark"></i></button></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="product-img-td"><a href="prduct.html"><img src="assets/img/products/11.jpg" alt=""></a></td>
+                                            <td><a href="#">Латте</a></td>
+                                            <td>$65</td>
+                                            <td>&times;1</td>
+                                            <td><button class="danger-btn btn btn-lg"><i class="fa-regular fa-circle-xmark"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4" class="text-end">Total:</td>
+                                            <td>$325</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="btn-modal-cart text-end mb-3 me-3">
+                                <button type="button" href="" class="btn">Оформить заказ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for product in main %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5">
+                <div class="product-thumb">
+                    {% if product.image %}
+                    <a href={% url "main:product" product.slug %}><img src={{ product.image.url }} alt=""></a>
+                    {% else %}
+                    <a href="product.html"><img src={% static "assets/images/Not found image.png" %} alt=""></a>
+                    {% endif %}
+                </div>
+                <div class="product-details">
+                    <h4>
+                        <a href="product.html">{{ product.name }}</a>
+                    </h4>
+                    <p class="product-excerpt">
+                        {{ product.descriptions }}
+                    </p>
+                    <div class="product-bottom-details d-flex justify-content-between align-items-center">
+                        <div class="product-price h5">
+                            {{ product.price }}р
+                        </div>
+                        <div class="product-links">
+                            <a href="#" class="btn btn-outline-secondary add-to-cart"><i
+                                    class="fa-solid fa-cart-plus fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if main %}
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination d-flex justify-content-center">
+                    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                        <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number %}{% else %}
+                        #
+                        {% endif %}"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% for page in page_obj.paginator.page_range %}
+                    {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
+                    <li class="page-item {% if page_obj.number == page %} active {% endif %}">
+                        <a class="page-link" href="?{% change_params page=page %}">{{ page }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                        <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number  %}{% else %}
+                        {% endif %}"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}
+
+{% block footer %}
+<footer class="footer" id="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <h4>Information</h4>
+                <ul class="list-unstyled">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Payment</a></li>
+                    <li><a href="index.html">Delivery</a></li>
+                    <li><a href="index.html">Contacts</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Working hours</h4>
+                <ul class="list-unstyled text-center" style="color: #3d464d;">
+                    <li>Paris, str. Bretan</li>
+                    <li>mon-fri: 9:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Contacts</h4>
+                <ul class="list-unstyled">
+                    <li><a href="tel:1234567890">123-456-7890</a></li>
+                    <li><a href="tel:0987654321">098-765-4321</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Follow us</h4>
+                <ul class="footer-icons">
+                    <li><a href="index.html"></a><i class="fa-brands fa-youtube"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-facebook-f"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-instagram"></i></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}
