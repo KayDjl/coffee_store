@@ -2,12 +2,16 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="product-page">
     <div class="row">
         <div class="col-md-5 col-lg-4 mb-4 mt-4">
             <div class="bg-white h-100">
                 <div class="img-item">
-                    <img src="{{ product.image.url }}" class="img-fluid" alt="">
+                    {% if product.image %}
+                    <img src={{ product.image.url }} class="img-fluid" alt="">
+                    {% else %}
+                    <img src="{% static "assets/images/Not found image.png" %}" class="img-fluid" alt="">
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -54,11 +58,11 @@
 
                         <div class="product-add2cart">
                             <div class="input-group">
-                                <button class="btn color-accent"><i class="fas fa-shopping-cart"></i>Купить {{ product.price }}р</button>
+                                <button class="btn color-accent"><i class="fas fa-shopping-cart" data-base-price="{{ product.price }}"></i>Купить {{ product.price }}р</button>
                             </div>
                         </div>
                     </div>
-
+                    {% if product.category.name in "Кофе, Напитки" %}
                     <div class="col-lg-8 mb-2">
                         <p class="color-accent h5">Добавки:</p>
                         <div class="overflow-auto " style="max-height: 200px; padding: 10px;">
@@ -67,6 +71,8 @@
                                     <div class="col-4">
                                         <div class="topings-thumb">
                                             <input type="checkbox" class="btn-check" name="options" id="option{{ forloop.counter }}" autocomplete="off"
+                                            value="{{ top.price }}"
+                                            {% if top.types.name == 'Молоко' %}data-milk="true"{% endif %}
                                             data-protein="{{ top.protein }}" 
                                             data-fats="{{ top.fats }}" 
                                             data-carb="{{ top.carb }}" 
@@ -80,6 +86,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

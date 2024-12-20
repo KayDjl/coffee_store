@@ -117,9 +117,9 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5">
                 <div class="product-thumb">
                     {% if product.image %}
-                    <a href={% url "main:product" product.slug %}><img src={{ product.image.url }} alt=""></a>
+                    <a href="{% url "main:product" product.slug %}"><img src="{{ product.image.url }}" alt=""></a>
                     {% else %}
-                    <a href="product.html"><img src={% static "assets/images/Not found image.png" %} alt=""></a>
+                    <a href="{% url "main:product" product.slug %}"><img src="{% static "assets/images/Not found image.png" %}" alt=""></a>
                     {% endif %}
                 </div>
                 <div class="product-details">
