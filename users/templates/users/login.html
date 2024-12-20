@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="container mt-4">
+        <form action="{% url 'users:login' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-register bg-white p-3">
+                        <h1 class="section-title h-3"><span>Войти</span></h1>
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                {% if request.GET.next %}
+                                <input type='hidden' name='next' value={{ request.GET.next }}>
+                                {% endif %}
+                                <div class="mb-3">
+                                    <label for="id_username" class="form-label required">Имя пользователя</label>
+                                    <input type="text" class="form-control" id="id_username"
+                                    value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+                                    name="username" 
+                                    placeholder="Введите ваше имя пользователя" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="id_password" class="form-label required">Пароль</label>
+                                    <input type="password" class="form-control" id="id_password"
+                                    name="password"
+                                    placeholder="Введите ваш пароль" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <a href="#">Забыли пароль?</a> | <a href="{% url "user:registration" %}">Создать аккаунт</a>
+                                </div>
+
+                                <div class="mb-3">
+                                    <button type="submit" class="btn-login btn">
+                                        Войти
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

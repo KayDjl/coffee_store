@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     #свои приложения
     'main',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL = '/user/login/'
+
+LOGIN_REDIRECT_URL = '/'
