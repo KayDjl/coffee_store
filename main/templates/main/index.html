@@ -60,56 +60,7 @@
                     <span>Все меню</span>
                 </h2>
             </div>
-            <div class="col-6 d-flex justify-content-end">
-                <button type="button" class=" modal-btn btn" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                    <i class="fa-solid fa-cart-shopping fa-2x"></i>
-                </button>
-
-                <!-- Модальное окно -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Корзина</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Закрыть"></button>
-                            </div>
-                            <div class="modal-body">
-                                <table class="table modal-table">
-                                    <tbody>
-                                        <tr>
-                                            <td class="product-img-td"><a href="prduct.html"><img src="assets/img/products/11.jpg" alt=""></a></td>
-                                            <td><a href="#">Латте</a></td>
-                                            <td>$65</td>
-                                            <td>&times;1</td>
-                                            <td><button class="danger-btn btn btn-lg"><i class="fa-regular fa-circle-xmark"></i></button></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="product-img-td"><a href="prduct.html"><img src="assets/img/products/11.jpg" alt=""></a></td>
-                                            <td><a href="#">Латте</a></td>
-                                            <td>$65</td>
-                                            <td>&times;1</td>
-                                            <td><button class="danger-btn btn btn-lg"><i class="fa-regular fa-circle-xmark"></i></button></td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="4" class="text-end">Total:</td>
-                                            <td>$325</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="btn-modal-cart text-end mb-3 me-3">
-                                <button type="button" href="" class="btn">Оформить заказ</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include "includes/cart_button.html" %}
         </div>
 
         <div class="row">
@@ -134,8 +85,11 @@
                             {{ product.price }}р
                         </div>
                         <div class="product-links">
-                            <a href="#" class="btn btn-outline-secondary add-to-cart"><i
-                                    class="fa-solid fa-cart-plus fa-2x"></i></a>
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <a href="{% url 'carts:cart_add' %}" 
+                            class="btn btn-outline-secondary add-to-cart"
+                            data-product-id="{{ product.id }}">
+                                <i class="fa-solid fa-cart-plus fa-2x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -213,3 +167,9 @@
     </div>
 </footer>
 {% endblock footer %}
+
+{% block top %}
+<button id="top">
+    <i class="fa-solid fa-chevron-up"></i>
+</button>
+{% endblock %}

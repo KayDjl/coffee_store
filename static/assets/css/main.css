@@ -20,6 +20,11 @@ body {
     color: var(--text-color);
 }
 
+.custom-shadow {
+    box-shadow: 2px 2px 10px 5px #000000;
+  
+}
+
 a {
     color: var(--text-color);
     text-decoration: underline;
@@ -219,6 +224,7 @@ main.main {
 .modal-title {
     color: var(--accent-color);
 }
+
 
 .danger-btn:hover {
     background-color: var(--bg-color);

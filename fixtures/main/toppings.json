@@ -1,0 +1,86 @@
+[
+    {
+        "model": "main.topping",
+        "pk": 1,
+        "fields": {
+            "name": "Сахар",
+            "image": "topping_images/1.jpg",
+            "calories": 12,
+            "protein": "3.0",
+            "fats": "2.0",
+            "carb": "3.0",
+            "price": "0.00",
+            "types": 1
+        }
+    },
+    {
+        "model": "main.topping",
+        "pk": 2,
+        "fields": {
+            "name": "Корица",
+            "image": "topping_images/2.jpg",
+            "calories": 21,
+            "protein": "1.0",
+            "fats": "0.5",
+            "carb": "1.5",
+            "price": "0.00",
+            "types": 1
+        }
+    },
+    {
+        "model": "main.topping",
+        "pk": 3,
+        "fields": {
+            "name": "Молоко кокосовое",
+            "image": "topping_images/1_MDE2TOD.jpg",
+            "calories": 54,
+            "protein": "12.0",
+            "fats": "8.0",
+            "carb": "4.0",
+            "price": "70.00",
+            "types": 3
+        }
+    },
+    {
+        "model": "main.topping",
+        "pk": 4,
+        "fields": {
+            "name": "Молоко миндальное",
+            "image": "topping_images/2_ragR8Jb.jpg",
+            "calories": 31,
+            "protein": "11.0",
+            "fats": "9.0",
+            "carb": "8.5",
+            "price": "70.00",
+            "types": 3
+        }
+    },
+    {
+        "model": "main.topping",
+        "pk": 5,
+        "fields": {
+            "name": "Сироп печенье",
+            "image": "topping_images/1.png",
+            "calories": 23,
+            "protein": "1.0",
+            "fats": "3.5",
+            "carb": "6.5",
+            "price": "40.00",
+            "types": 2
+        }
+    },
+    {
+        "model": "main.topping",
+        "pk": 6,
+        "fields": {
+            "name": "Сироп лаванда",
+            "image": "topping_images/2_YLIdmuR.jpg",
+            "calories": 24,
+            "protein": "11.0",
+            "fats": "2.0",
+            "carb": "2.5",
+            "price": "40.00",
+            "types": 2
+        }
+    }
+]

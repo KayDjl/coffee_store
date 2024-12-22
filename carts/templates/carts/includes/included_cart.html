@@ -1,0 +1,44 @@
+{% load static %}
+{% load custom_filters %}
+
+<div class="modal-body">
+    <table class="table modal-table">
+        {% for cart in carts  %}
+        <tbody>
+            <tr>
+                <td class="product-img-td"><a href="#"><img src="{{ cart.product.image.url }}" alt="{{ cart.product.name }}"></a></td>
+                <td>
+                    <a href="#">{{ cart.product.name }}</a>
+                    {% if cart.toppings.all %}
+                    <ul class="toppings-list" style="font-size: 0.85em; margin-top: 5px; list-style: none; padding: 0;">
+                        {% for topping in cart.toppings.all %}
+                        <li>{{ topping.name }} ({{ topping.price }}₽)</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </td>
+                <td id="goods-in-cart-count">{{ cart.total_price }}₽</td>
+                <td>&times;{{ cart.quantity }}</td>
+                <td><a href="{% url "cart:cart_remove" %}"
+                    class="remove-from-cart"
+                    data-cart-id="{{ cart.id }}">
+                    {% csrf_token %}
+                    <i class="fa-regular fa-circle-xmark"></i></a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+        {% if carts %}
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-end">Итого:</td>
+                <td>{{ carts|sum_total }}₽</td>
+            </tr>
+        </tfoot>
+        {% endif %}
+    </table>
+</div>
+{% if carts %}
+    <div class="btn-modal-cart text-end mb-3 me-3">
+        <button type="button" href="" class="btn">Оформить заказ</button>
+    </div>
+{% endif %}

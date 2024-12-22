@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #свои приложения
     'main',
     'users',
+    'carts',
 ]
 
 MIDDLEWARE = [

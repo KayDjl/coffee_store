@@ -18,8 +18,7 @@
 
         <div class="col-md-7 col-lg-8 mb-3">
             <div class="product-content p-3 h-100">
-                <h1 class="section-title h-3"><span>{{ product.name }}</span></h1>
-                
+                <h1 class="section-title h-3"><span>{{ product.name }}</span></h1>        
                 <div class="descript">
                     <p class="color-accent h5">{{ product.weight }}мл.</p>
                     <p class="color-accent h5">Состав:</p>
@@ -58,7 +57,12 @@
 
                         <div class="product-add2cart">
                             <div class="input-group">
-                                <button class="btn color-accent"><i class="fas fa-shopping-cart" data-base-price="{{ product.price }}"></i>Купить {{ product.price }}р</button>
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <a href="{% url 'carts:cart_add' %}"
+                                class="btn color-accent add-to-cart" 
+                                data-base-price="{{ product.price }}"    
+                                data-product-id="{{ product.id }}"><i class="fas fa-shopping-cart"></i>
+                                <span class="buy-button-text">Купить {{ product.price }}р</span></a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +74,10 @@
                                 {% for top in topping %}
                                     <div class="col-4">
                                         <div class="topings-thumb">
-                                            <input type="checkbox" class="btn-check" name="options" id="option{{ forloop.counter }}" autocomplete="off"
-                                            value="{{ top.price }}"
+                                            <input type="checkbox" class="btn-check" name="topping_ids[]" id="option{{ forloop.counter }}" autocomplete="off"
+                                            value="{{ top.id }}"
+                                            data-price="{{ top.price }}"
+                                            {% comment %} data-id="{{ top.id }}" {% endcomment %}
                                             {% if top.types.name == 'Молоко' %}data-milk="true"{% endif %}
                                             data-protein="{{ top.protein }}" 
                                             data-fats="{{ top.fats }}" 

@@ -1,0 +1,28 @@
+{% load static %}
+{% load carts_tags %}
+
+{% user_carts request as carts%}
+
+<div class="col-6 d-flex justify-content-end">
+    <button type="button" class=" modal-btn btn" data-bs-toggle="modal" id="modalButton"
+        data-bs-target="#exampleModal">
+        <i class="fa-solid fa-cart-shopping fa-2x"></i>
+    </button>
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Корзина</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Закрыть"></button>
+                </div>
+                <div id="cart-items-container">
+                    {% include "carts/includes/included_cart.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

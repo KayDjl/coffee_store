@@ -1,0 +1,23 @@
+[
+    {
+        "model": "main.typetopping",
+        "pk": 1,
+        "fields": {
+            "name": "Специи"
+        }
+    },
+    {
+        "model": "main.typetopping",
+        "pk": 2,
+        "fields": {
+            "name": "Сиропы"
+        }
+    },
+    {
+        "model": "main.typetopping",
+        "pk": 3,
+        "fields": {
+            "name": "Молоко"
+        }
+    }
+]

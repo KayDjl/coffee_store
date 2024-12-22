@@ -59,11 +59,11 @@
                                         Профиль
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-start">
-                                        <li><a class="dropdown-item" href="profile.html">Личный кабинет</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'user:profile' %}">Личный кабинет</a></li>
+                                        {% if user.is_staff %}
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        {% if user.is_staff %}
                                         <li><a class="dropdown-item" href="{% url "admin:index" %}">Админ панель</a></li>
                                         {% endif %}
                                     </ul>
@@ -88,10 +88,14 @@
     </header>
 
     <main class="main">
+        {% include "includes/nontifications.html" %}
         {% block content %}{% endblock %}
     </main>
 
     {% block footer %}
+    {% endblock %}
+
+    {% block top %}
     {% endblock %}
 
     <script src={% static "assets/js/bootstrap.bundle.min.js" %}></script>
