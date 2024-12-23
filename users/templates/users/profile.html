@@ -47,7 +47,6 @@
         </div>
         <div class="col-lg-6 col-md-12 p-4">
             <h3 class="text-center">Мои ответы</h3>
-            <!-- Разметка заказов -->
             <div class="container">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
@@ -72,6 +71,77 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="p-4">
+                <h3 class="text-center">Мои заказы</h3>
+                <!-- Разметка заказов -->
+                <div class="accordion" id="ordersAccordion">
+                    {% if user.order_set.exists %}
+                        {% for order in user.order_set.all %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="orderHeading{{ forloop.counter }}">
+                                    <button class="accordion-button {{ forloop.first|yesno:',collapsed' }}" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#orderCollapse{{ forloop.counter }}" aria-expanded="{{ forloop.first|yesno:'true,false' }}" aria-controls="orderCollapse{{ forloop.counter }}">
+                                        Заказ №{{ order.id }} — {{ order.created_timestamp|date:"d.m.Y H:i" }} | 
+                                        Статус: <strong class="mx-2">{{ order.status }}</strong>
+                                    </button>
+                                </h2>
+                                <div id="orderCollapse{{ forloop.counter }}" class="accordion-collapse collapse {{ forloop.first|yesno:'show,' }}"
+                                    aria-labelledby="orderHeading{{ forloop.counter }}" data-bs-parent="#ordersAccordion">
+                                    <div class="accordion-body">
+                                        <h5>Детали заказа</h5>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Товар</th>
+                                                    <th>Количество</th>
+                                                    <th class="text-end">Цена</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in order.orderitem_set.all %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ item.name }}
+                                                            {% if item.toppings.exists %}
+                                                                <ul class="list-unstyled">
+                                                                    {% for topping in item.toppings.all %}
+                                                                        <li>+ {{ topping.name }} ({{ topping.price }}₽)</li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ item.quantity }}</td>
+                                                        <td class="text-end">{{ item.products_price|floatformat:2 }}₽</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="2" class="text-end">Итого:</th>
+                                                    <th class="text-end">{{ order.orderitem_set.total_price|floatformat:2 }}₽</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <p><strong>Доставка:</strong> 
+                                            {% if order.requires_delivery %}
+                                                {{ order.delivery_address }}
+                                            {% else %}
+                                                Самовывоз
+                                            {% endif %}
+                                        </p>
+                                        <p><strong>Оплата:</strong> 
+                                            {{ order.payment_on_get|yesno:"При получении,Оплачено" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted text-center">Вы ещё не сделали ни одного заказа.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    {% if user.is_superuser %}
+        <a href="{% url 'news:news_create' %}" class="btn btn-color-accent mb-4">Добавить новость</a>
+    {% endif %}
+    <div class="row row-margin-bottom mt-4">
+        {% for new in news %}
+        <div class="col-lg-6 col-md-12">
+            <div class="lib-panel">
+                <div class="row box-shadow">
+                    <div class="col-md-6">
+                        <img class="lib-img-show"
+                            src="{{ new.image.url }}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="lib-row lib-header">
+                            <a href="#" class="news-exsept-title">{{ new.title }}</a>
+                            <div class="lib-header-seperator"></div>
+                        </div>
+                        <div class="lib-row lib-desc">
+                            <p class="mb-0"><i class="fa-regular fa-calendar"></i></span>
+                                {{ new.created_at }}</p>
+                            <p class="mb-0"><i class="fa-solid fa-rotate"></i>
+                                {{ new.updated_at }}</p>
+                            <p>Автор: {{ new.author }}</p>
+                            <p class="news-exsept">{{ new.content }}</p>
+                            <p><i class="fa-regular fa-eye"></i></span> {{ news.views }} |
+                                <i class="fa-regular fa-comment"></i></span> 7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

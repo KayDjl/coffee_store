@@ -1,12 +1,17 @@
 {% load static %}
 {% load custom_filters %}
 
+
 <div class="modal-body">
     <table class="table modal-table">
         {% for cart in carts  %}
         <tbody>
             <tr>
+                {% if cart.product.image %}
                 <td class="product-img-td"><a href="#"><img src="{{ cart.product.image.url }}" alt="{{ cart.product.name }}"></a></td>
+                {% else %}
+                <td class="product-img-td"><a href="#"><img src="{% static "assets/images/Not found image.png" %}" alt="{{ cart.product.name }}"></a></td>
+                {% endif %}
                 <td>
                     <a href="#">{{ cart.product.name }}</a>
                     {% if cart.toppings.all %}
@@ -39,6 +44,6 @@
 </div>
 {% if carts %}
     <div class="btn-modal-cart text-end mb-3 me-3">
-        <button type="button" href="" class="btn">Оформить заказ</button>
+        <a href={% url "orders:create_order" %} class="btn">Оформить заказ</a>
     </div>
 {% endif %}

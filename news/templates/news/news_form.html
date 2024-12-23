@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="section_title">Создание новости</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="id_title"  class="form-label">Заголовок:</label>
+                    <input type="text" name="title" id="id_title" class="form-control"
+                    placeholder="Заголовок новости" aria-label="title" required>
+                    {% if form.title.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.title.errors }}</div>
+                    {% endif %}
+                    <div class="alert alert-danger alert-dismissible fade show" style="display: none" id="phone_number_error">Неверный заголовка</div>
+                </div>
+                <div class="mb-3">
+                    <label for="id_content" class="form-label">Контент новости:</label>
+                    <textarea class="form-control" id="id_content"
+                        value="{% if form.content.value %}{{ form.content.value }}{% endif %}" 
+                        name="content" rows="2"></textarea>
+                    {% if form.content.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.content.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="id_image" class="form-label">Изображение новости:</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">{{ form.image.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+</div>
+{% endblock %}

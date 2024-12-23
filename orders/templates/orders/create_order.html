@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+{% load carts_tags %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container" id="cart-items-container">
+    {% user_carts request as carts %}
+    <form action="{% url "orders:create_order" %}" method="post" id="create_order_form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-8 mb-3">
+                <div class="checkout-content bg-white p-3 h-100">
+                    <h1 class="section-title h5">
+                        <span>Оформление заказа</span>
+                    </h1>
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label for="id_phone_number"  class="form-label">Номер телефона:</label>
+                            <input type="text" name="phone_number" id="id_phone_number" class="form-control"
+                            placeholder="(000) 000-0000" aria-label="Phone" required>
+                            {% if form.phone_number.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.phone_number.errors }}</div>
+                            {% endif %}
+                            <div class="alert alert-danger alert-dismissible fade show" style="display: none" id="phone_number_error">Неверный формат номера</div>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label for="delivery" class="form-label">Способ доставки: </label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="requires_delivery"
+                                    id="id_requires_delivery" value="1" checked>
+                                <label class="form-check-label" for="id_requires_delivery">Нужна
+                                    доставка</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="requires_delivery"
+                                    id="id_requires_delivery" value="0">
+                                <label class="form-check-label" for="id_requires_delivery">Самовывоз</label>
+                            </div>
+                        </div>
+                        <div class="mb-3" id="deliveryAddressField">
+                            <label for="id_delivery_address" class="form-label">Адрес
+                                доставки*:</label>
+                            <textarea class="form-control" id="id_delivery_address"
+                                value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}" 
+                                name="delivery_address" rows="2"></textarea>
+                            {% if form.delivery_address.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-3">
+                <div class="cart-summary p-3 sidebar h-100">
+                    <h5 class="section-title">
+                        <span>Общее количество заказов</span>
+                    </h5>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Позиция</th>
+                                    <th class="text-end">Цена</th>
+                                </tr>
+                            </thead>
+                            {% for cart in carts  %}
+                            <tbody>
+                                <tr>
+                                    <td>{{ cart.product.name }}
+                                    {% if cart.toppings.all %}
+                                    <ul class="toppings-list" style="font-size: 0.85em; margin-top: 5px; list-style: none; padding: 0;">
+                                        {% for topping in cart.toppings.all %}
+                                        <li>{{ topping.name }} ({{ topping.price }}₽)</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                        <small> x {{ cart.quantity }}</small>
+                                    </td>
+                                    <td class="text-end">{{ cart.total_price }}₽</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="text-end">Всего: {{ carts|sum_total }}₽</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="form-check mx-2">
+                            <input name="payment_on_get" class="form-check-input" type="radio" value="0" name="payment_on_get"
+                                id="id_payment_on_get" required>
+                            <label class="form-check-label" for="id_payment_on_get">
+                                Оплата по карте
+                            </label>
+                        </div>
+
+                        <div class="form-check mx-2">
+                            <input name="payment_on_get" class="form-check-input" type="radio" value="1" name="payment_on_get"
+                                id="id_payment_on_get" required>
+                            <label class="form-check-label" for="id_payment_on_get">
+                                Наличными/картой при плучении
+                            </label>
+                            {% if form.payment_on_get.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{ form.payment_on_get.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn-order btn btn-color-accent">Оформить заказ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div> 
+{% endblock %}
+
+{% block footer %}
+<footer class="footer" id="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <h4>Information</h4>
+                <ul class="list-unstyled">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Payment</a></li>
+                    <li><a href="index.html">Delivery</a></li>
+                    <li><a href="index.html">Contacts</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Working hours</h4>
+                <ul class="list-unstyled text-center" style="color: #3d464d;">
+                    <li>Paris, str. Bretan</li>
+                    <li>mon-fri: 9:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Contacts</h4>
+                <ul class="list-unstyled">
+                    <li><a href="tel:1234567890">123-456-7890</a></li>
+                    <li><a href="tel:0987654321">098-765-4321</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-6">
+                <h4>Follow us</h4>
+                <ul class="footer-icons">
+                    <li><a href="index.html"></a><i class="fa-brands fa-youtube"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-facebook-f"></i></li>
+                    <li><a href="#"></a><i class="fa-brands fa-instagram"></i></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

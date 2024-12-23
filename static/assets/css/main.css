@@ -11,6 +11,13 @@
 html,
 body {
     height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-container {
+    flex: 1 0 auto;
 }
 
 body {
@@ -208,7 +215,7 @@ main.main {
 
 .modal-table .product-img-td {
     max-width: 70px;
-    text-align: center;
+    text-align: start;
 }
 
 .modal-table td {
@@ -224,6 +231,7 @@ main.main {
 .modal-title {
     color: var(--accent-color);
 }
+
 
 
 .danger-btn:hover {
@@ -348,7 +356,7 @@ main.main {
 
 }
 
-.product-price {
+.product-price1 {
     color: var(--accent-color);
     font-weight: 800;
     margin-top: 8px;
@@ -516,6 +524,7 @@ footer a:hover {
     border-radius: 15%;
 }
 
+
 .topings-thumb label:hover {
     box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
 } 
@@ -545,10 +554,18 @@ footer a:hover {
 }
 
 
-.topings-thumb button:focus {
+/* .topings-thumb button:focus {
     box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
     
+} */
+.topings-thumb input[type="checkbox"]:checked + .btn:focus {
+    box-shadow: 10px 10px 30px -20px rgba(0, 0, 0, 1.5);
 }
+
+.topings-thumb input[type="checkbox"]:not(:checked) + .btn {
+    box-shadow: none;
+}
+
 
 /* ===================================================Product=================================================== */
 
@@ -605,6 +622,7 @@ footer a:hover {
   .lib-panel img {
     width: 100%;
     background-color: transparent;
+    aspect-ratio: 261 / 255; /* Устанавливаем соотношение сторон */
   }
   .lib-panel .row,
   .lib-panel .col-md-6 {

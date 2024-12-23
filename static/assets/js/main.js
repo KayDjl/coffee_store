@@ -120,7 +120,22 @@ $(document).ready(function () {
         });
     });
 
+
+    function recalculatePrice() {
+        // Базовая цена из товара
+        var basePrice = parseFloat($("#product-price").data("base-price"));
+        var totalPrice = basePrice;
     
+        // Суммируем стоимость выбранных топпингов
+        $("input[name='topping_ids[]']:checked").each(function () {
+            totalPrice += parseFloat($(this).data("price"));
+        });
+    
+        // Обновляем отображение цены
+        $("#product-price").text(totalPrice.toFixed(2) + "Р");
+    }
+
+
     function recalculateKBJU() {
         // Начальные значения из товара
         var baseCalories = parseFloat($("#calories").data("base-value"));
@@ -157,21 +172,23 @@ $(document).ready(function () {
 
     // Событие изменения для чекбоксов
     $(document).on("change", "input[name='topping_ids[]']", function () {
-        // const selectedToppings = $("input[name='toping_ids[]']:checked").toArray();
 
-        // // Проверяем количество молока
-        // const selectedMilk = selectedToppings.filter(cb => $(cb).attr("data-milk") === "true");
-        // if (selectedMilk.length > 1) {
-        //     Swal.fire({
-        //         icon: 'error',
-        //         title: 'Ошибка',
-        //         text: 'Вы можете выбрать только одно молоко.',
-        //         confirmButtonText: 'Ок'
-        //     });
-        //     $(this).prop("checked", false);
-        //     return;
-        // }
+        // Проверяем количество выбранных молока
+        var milkCount = $("input[name='topping_ids[]'][data-milk='true']:checked").length;
+
+        if (milkCount > 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ошибка!',
+                text: 'Вы можете выбрать только одно молоко.',
+                confirmButtonText: 'ОК',
+            }).then(() => {
+                $(this).prop("checked", false); // Отменяем выбор текущего чекбокса
+            });
+            return;
+        }
         recalculateKBJU();
+        recalculatePrice();
     });
     
 
@@ -212,87 +229,26 @@ $(document).ready(function () {
     
 
     //Обновление URL сортировки по цене на главной странице
-    document.querySelectorAll('.form-check-input').forEach((radio) => {
+    document.querySelectorAll('.index_radio').forEach((radio) => {
         radio.addEventListener('change', function () {
             const orderBy = this.value;
             const url = new URL(window.location.href);
             url.searchParams.set('order_by', orderBy);
             window.location.href = url.toString();
+        });
     });
-});
+
+
+    // Обработчик события радиокнопки выбора способа доставки
+    $("input[name='requires_delivery']").change(function () {
+        var selectedValue = $(this).val();
+        // Скрываем или отображаем input ввода адреса доставки
+        if (selectedValue === "1") {
+            $("#deliveryAddressField").show();
+        } else {
+            $("#deliveryAddressField").hide();
+        }
+    });
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // // Функция ра счетра кбжу, стоимости продукта и валидации на молоко
-    // const productPageElem = document.getElementById("product-page");
-    // if (!productPageElem) {
-    //     return;
-    // }
-
-    // const toppingCheckboxes = document.querySelectorAll(".btn-check");
-    // const caloriesElem = document.getElementById("calories");
-    // const proteinElem = document.getElementById("protein");
-    // const fatsElem = document.getElementById("fats");
-    // const carbElem = document.getElementById("carb");
-    // const buyButton = document.querySelector(".product-add2cart a");
-
-    // // Начальные значения из продукта
-    // const baseCalories = parseFloat(caloriesElem.textContent) || 0;;
-    // const baseProtein = parseFloat(proteinElem.textContent) || 0;;
-    // const baseFats = parseFloat(fatsElem.textContent) || 0;;
-    // const baseCarb = parseFloat(carbElem.textContent) || 0;;
-    // const basePrice = parseFloat(buyButton.dataset.basePrice) || 0;;
-
-    // toppingCheckboxes.forEach(checkbox => {
-    //     checkbox.addEventListener("change", function () {
-    //         let totalCalories = baseCalories;
-    //         let totalProtein = baseProtein;
-    //         let totalFats = baseFats;
-    //         let totalCarb = baseCarb;
-    //         let totalPrice = basePrice;
-
-            // // Проверяем все выбранные топпинги
-            // const selectedToppings = Array.from(toppingCheckboxes).filter(cb => cb.checked);
-
-            // // Проверяем количество молока
-            // const selectedMilk = selectedToppings.filter(cb => cb.dataset.milk === "true");
-            // if (selectedMilk.length > 1) {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: 'Ошибка',
-            //         text: 'Вы можете выбрать только одно молоко.',
-            //         confirmButtonText: 'Ок'
-            //     });
-            //     this.checked = false;
-            //     return;
-            // }
-
-    //         // Обновляем КБЖУ и цену
-    //         selectedToppings.forEach(cb => {
-    //             totalCalories += parseFloat(cb.dataset.calories) || 0;;
-    //             totalProtein += parseFloat(cb.dataset.protein) || 0;;
-    //             totalFats += parseFloat(cb.dataset.fats) || 0;;
-    //             totalCarb += parseFloat(cb.dataset.carb) || 0;;
-    //             totalPrice += parseFloat(cb.dataset.price) || 0;
-    //         });
-
-    //         // Обновляем значения на странице
-    //         caloriesElem.textContent = `${totalCalories.toFixed(1)} ккал`;
-    //         proteinElem.textContent = `${totalProtein.toFixed(1)} г`;
-    //         fatsElem.textContent = `${totalFats.toFixed(1)} г`;
-    //         carbElem.textContent = `${totalCarb.toFixed(1)} г`;
-    //         buyButton.innerHTML = `<i class="fas fa-shopping-cart"></i> Купить ${totalPrice.toFixed(2)}р`;
-    //     });
-    // });

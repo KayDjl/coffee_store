@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('user/', include('users.urls', namespace='user')),
     path('cart/', include('carts.urls', namespace='cart')),
+    path('orders/', include('orders.urls', namespace='orders')),
+    path('news/', include('news.urls', namespace='news')),
 ]
 
 if settings:
