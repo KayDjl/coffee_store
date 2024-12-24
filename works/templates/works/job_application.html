@@ -110,13 +110,13 @@
                     <div class="col-md-6 mb-3">
                         <label for="children" class="form-label">Есть дети?</label>
                         <div class="d-flex align-items-center">
-                            <div class="form-check form-check-inline me-2">
+                            <div class="me-2">
                                 <input type="radio" id="id_has_children" name="has_children" value="True" required>
-                                <label for="id_has_children" class="form-check-input">Да</label>
+                                <label for="id_has_children" class="form-label">Да</label>
                             </div>
-                            <div class="form-check form-check-inline">
+                            <div>
                                 <input type="radio" id="id_has_children" name="has_children" value="False" required>
-                                <label for="id_has_children" class="form-check-input">Нет</label>
+                                <label for="id_has_children" class="form-label">Нет</label>
                                 {% if form.has_children.errors %}
                                     <div class="alert alert-danger alert-dismissible fade show">{{ form.has_children.errors }}</div>
                                 {% endif %}
@@ -127,7 +127,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="id_about_yourself" class="form-label">Раскажите о себе (не обязательно)</label>
                         <textarea class="form-control" name="about_yourself" id="id_about_yourself" rows="3"
-                            placeholder="Чем занимаетесь, ваши увлечения, награды, титулы"></textarea>
+                            placeholder="Чем занимаетесь, ваши увлечения, награды, титулы" required></textarea>
                         {% if form.about_yourself.errors %}
                             <div class="alert alert-danger alert-dismissible fade show">{{ form.about_yourself.errors }}</div>
                         {% endif %}
@@ -136,7 +136,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="id_work_experience" class="form-label">Опыт работы</label>
                         <textarea class="form-control" name="work_experience" id="id_work_experience" rows="3"
-                            placeholder="Напишите где и кем вы работали и сколько времени"></textarea>
+                            placeholder="Напишите где и кем вы работали и сколько времени" required></textarea>
                         {% if form.work_experience.errors %}
                             <div class="alert alert-danger alert-dismissible fade show">{{ form.work_experience.errors }}</div>
                         {% endif %}

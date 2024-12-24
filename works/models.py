@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+from users.models import User
+
 
 class JobApplication(models.Model):
     STATUS_CHOICES = [
@@ -35,4 +37,4 @@ class JobApplication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подачи заявки")
 
     def __str__(self):
-        return f"Заявка от {self.full_name} ({self.get_status_display()})"
+        return f"Заявка от {self.full_name} ({self.status})"

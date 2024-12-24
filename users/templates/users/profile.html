@@ -46,33 +46,49 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-12 p-4">
+            {% if user.job_applications.exists %}
             <h3 class="text-center">Мои ответы</h3>
             <div class="container">
                 <div class="accordion" id="accordionExample">
+                    {% for application in user.job_applications.all %}
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading1">
+                        <h2 class="accordion-header" id="heading1{{ forloop.counter }}">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                Отклик на работу - 09 сентября 2023 9:04 | Статус:<strong class="mx-2"> В
-                                    обработке</strong>
+                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                Отклик на работу - {{ application.created_at|date:"d.m.Y H:i" }} | 
+                                Статус: <strong class="mx-2">{{ application.get_status_display|default:"В обработке" }}</strong>
                             </button>
                         </h2>
-                        <div id="collapse1" class="accordion-collapse collapse show"
-                            aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                            aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <table class="table table-hover">
                                     <tbody>
                                         <tr>
                                             <th scope="row">Должность</th>
-                                            <td class="text-end">Кассир</td>
+                                            <td class="text-end">{{ application.position }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">ФИО</th>
+                                            <td class="text-end">{{ application.full_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Дата подачи</th>
+                                            <td class="text-end">{{ application.created_at|date:"d.m.Y H:i" }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Статус</th>
+                                            <td class="text-end">{{ application.get_status_display|default:"В обработке" }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
 
             <div class="p-4">
                 <h3 class="text-center">Мои заказы</h3>

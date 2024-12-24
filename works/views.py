@@ -4,7 +4,7 @@ from .forms import JobApplicationForm
 from .models import JobApplication
 
 class JobApplicationCreateView(FormView):
-    template_name = 'job_application.html'
+    template_name = 'works/job_application.html'
     form_class = JobApplicationForm
     success_url = reverse_lazy('main:index')  
 
