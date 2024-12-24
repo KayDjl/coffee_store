@@ -12,8 +12,13 @@
             <div class="lib-panel">
                 <div class="row box-shadow">
                     <div class="col-md-6">
+                        {% if new.image %}
                         <img class="lib-img-show"
                             src="{{ new.image.url }}">
+                        {% else %}
+                        <img class="lib-img-show"
+                            src="{% static "assets/images/news/no_photo.jpg" %}">
+                        {% endif %}
                     </div>
                     <div class="col-md-6">
                         <div class="lib-row lib-header d-flex justify-content-between align-items-center">
@@ -29,8 +34,7 @@
                                 {{ new.updated_at }}</p>
                             <p>Автор: {{ new.author }}</p>
                             <p class="news-exsept">{{ new.content }}</p>
-                            <p><i class="fa-regular fa-eye"></i></span> {{ new.views }} |
-                                <i class="fa-regular fa-comment"></i></span> 7</p>
+                            <p><i class="fa-regular fa-eye"></i></span> {{ new.views }}</p>
                         </div>
                     </div>
                 </div>

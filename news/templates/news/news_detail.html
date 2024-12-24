@@ -5,13 +5,16 @@
 <div class="container">
     <div class="row mb-4 border-bottom">
         <div class="col-md-4">
+            {% if news.image %}
             <img class="img-fluid rounded" src="{{ news.image.url }}">
+            {% else %}
+            <img class="img-fluid rounded" src="{% static 'assets/images/news/no_photo.jpg' %}">
+            {% endif %}
         </div>
         <div class="col-md-8">
             <div class="d-flex justify-content-between mt-4 mt-md-0">
                 <p>{{ news.title }}</p>
-                <p><i class="fa-regular fa-eye"></i></span> {{news.views}} |
-                    <i class="fa-regular fa-comment"></i></span> 7</p>
+                <p><i class="fa-regular fa-eye"></i></span> {{news.views}}</p>
             </div>
             <div class="lib-row lib-desc">
                 <p class="mb-0"><i class="fa-regular fa-calendar"></i></span>
