@@ -45,13 +45,13 @@
                             <div class="offcanvas-body d-flex flex-column flex-lg-row">
                                 <ul class="navbar-nav justify-content-center align-items-center flex-grow-1">
                                     <li class="nav-item">
-                                        <a class="nav-link active " aria-current="page" href="index.html">Меню</a>
+                                        <a class="nav-link active " aria-current="page" href="{% url "main:index" %}">Меню</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{% url 'news:news_list' %}">Новости</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="work.html">Работать с нами</a>
+                                        <a class="nav-link" href="{% url "works:job_application" %}">Работать с нами</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button"

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <form action="{% url "works:job_application" %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="page-work bg-white p-3">
+                <h1 class="section-title h-3"><span>Заявка на трудоустройство</span></h1>
+                <div class="row g-3">
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_full_name" class="form-label">ФИО</label>
+                        <input type="text" class="form-control" name="full_name" id="id_full_name" placeholder="Иванов Иван Иванович"
+                            required>
+                        {% if form.full_name.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.full_name.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_birth_date" class="form-label required">Дата рождения</label>
+                        <input type="date" class="form-control" name="birth_date" id="id_birth_date"
+                            required>
+                        {% if form.birth_date.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.birth_date.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_gender" class="form-label required">Пол</label>
+                        <select class="form-control" id="id_gender" name="gender" required>
+                            <option value="" disabled selected>Выберите пол</option>
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
+                        {% if form.gender.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.gender.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_residence" class="form-label required">Место проживания</label>
+                        <input type="text" class="form-control" name="residence" id="id_residence"
+                            placeholder="г. Лермонтов, ул Ленина, д 4" required>
+                        {% if form.residence.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.residence.errors }}</div>
+                        {% endif %}
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_phone" class="form-label">Номер телефона</label>
+                        <input type="tel" name="phone" id="id_phone" class="form-control"
+                            placeholder="+79283871234" aria-label="Phone" required>
+                        {% if form.phone.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.phone.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        <input type="email" name="email" id="id_email" class="form-control" placeholder="Email"
+                            aria-label="email" required>
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Учишься?</label>
+                        <div class="d-flex align-items-center">
+                            <div class="me-2">
+                                <input type="radio" id="id_is_student" name="is_student" value="True" required>
+                                <label for="id_is_student" class="form-label">Да</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="id_is_student" name="is_student" value="False" required>
+                                <label for="id_is_student" class="form-label">Нет</label>
+                            </div>
+                        </div>
+                        {% if form.is_student.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.is_student.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_marital_status" class="form-label">Семейное положение</label>
+                        <select class="form-control" id="id_marital_status" name="marital_status" required>
+                            <option value="" disabled selected>Выберете семейное положение</option>
+                            <option value="single">Свободен(на)</option>
+                            <option value="married">В браке</option>
+                            <option value="divorced">Разведен(на)</option>
+                        </select>
+                        {% if form.marital_status.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.marital_status.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_position" class="form-label required">Предпочитаемая должность</label>
+                        <input type="text" class="form-control" name="position" id="id_position"
+                            placeholder="Кассир, Администратор" required>
+                        {% if form.position.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.position.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="children" class="form-label">Есть дети?</label>
+                        <div class="d-flex align-items-center">
+                            <div class="form-check form-check-inline me-2">
+                                <input type="radio" id="id_has_children" name="has_children" value="True" required>
+                                <label for="id_has_children" class="form-check-input">Да</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="id_has_children" name="has_children" value="False" required>
+                                <label for="id_has_children" class="form-check-input">Нет</label>
+                                {% if form.has_children.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.has_children.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="id_about_yourself" class="form-label">Раскажите о себе (не обязательно)</label>
+                        <textarea class="form-control" name="about_yourself" id="id_about_yourself" rows="3"
+                            placeholder="Чем занимаетесь, ваши увлечения, награды, титулы"></textarea>
+                        {% if form.about_yourself.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.about_yourself.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="id_work_experience" class="form-label">Опыт работы</label>
+                        <textarea class="form-control" name="work_experience" id="id_work_experience" rows="3"
+                            placeholder="Напишите где и кем вы работали и сколько времени"></textarea>
+                        {% if form.work_experience.errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">{{ form.work_experience.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn-color-accent btn">
+                            Отправить заявку
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

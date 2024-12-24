@@ -3,8 +3,9 @@ from .models import News, Comment
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'created_at', 'views')
-    search_fields = ('title', 'content')
+    list_display = ('title', 'slug', 'author', 'created_at', 'updated_at', 'views')
+    prepopulated_fields = {"slug": ("title",)}  # Автозаполнение slug на основе title
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

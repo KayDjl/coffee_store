@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-    {% if user.is_superuser %}
+    {% if user.is_staff %}
         <a href="{% url 'news:news_create' %}" class="btn btn-color-accent mb-4">Добавить новость</a>
     {% endif %}
     <div class="row row-margin-bottom mt-4">
@@ -16,9 +16,11 @@
                             src="{{ new.image.url }}">
                     </div>
                     <div class="col-md-6">
-                        <div class="lib-row lib-header">
-                            <a href="#" class="news-exsept-title">{{ new.title }}</a>
-                            <div class="lib-header-seperator"></div>
+                        <div class="lib-row lib-header d-flex justify-content-between align-items-center">
+                            <a href="{% url "news:news_detail" slug=new.slug%}" class="news-exsept-title">{{ new.title }}</a>
+                            {% if user.is_staff %}
+                            <a href="{% url 'news:news_delete' slug=new.slug %}" class="btn btn-danger">Удалить</a>
+                            {% endif %}
                         </div>
                         <div class="lib-row lib-desc">
                             <p class="mb-0"><i class="fa-regular fa-calendar"></i></span>
@@ -27,7 +29,7 @@
                                 {{ new.updated_at }}</p>
                             <p>Автор: {{ new.author }}</p>
                             <p class="news-exsept">{{ new.content }}</p>
-                            <p><i class="fa-regular fa-eye"></i></span> {{ news.views }} |
+                            <p><i class="fa-regular fa-eye"></i></span> {{ new.views }} |
                                 <i class="fa-regular fa-comment"></i></span> 7</p>
                         </div>
                     </div>

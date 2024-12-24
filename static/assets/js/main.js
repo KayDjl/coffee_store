@@ -226,7 +226,9 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: 0 }, 100);
         return false;
     });
-    
+
+
+
 
     //Обновление URL сортировки по цене на главной странице
     document.querySelectorAll('.index_radio').forEach((radio) => {
