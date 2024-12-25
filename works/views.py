@@ -1,3 +1,4 @@
+from datetime import date
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from .forms import JobApplicationForm
@@ -6,7 +7,7 @@ from .models import JobApplication
 class JobApplicationCreateView(FormView):
     template_name = 'works/job_application.html'
     form_class = JobApplicationForm
-    success_url = reverse_lazy('main:index')  
+    success_url = reverse_lazy('main:index')
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -26,3 +27,9 @@ class JobApplicationCreateView(FormView):
             about_yourself=data['about_yourself'],
         )
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Заявка на работу"
+        context['today_date'] = date.today().isoformat()  
+        return context

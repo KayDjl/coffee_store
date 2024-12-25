@@ -1,5 +1,4 @@
 from django.db import models
-
 from main.models import Products, Topping
 from users.models import User
 
@@ -28,3 +27,5 @@ class Cart(models.Model):
     def total_price(self):
         toppings_price = sum(topping.price for topping in self.toppings.all())
         return (self.product.price + toppings_price) * self.quantity
+        
+

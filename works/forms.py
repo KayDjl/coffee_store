@@ -1,3 +1,4 @@
+from datetime import date
 from django import forms
 
 class JobApplicationForm(forms.Form):  
@@ -35,4 +36,18 @@ class JobApplicationForm(forms.Form):
             ],
     )
     work_experience = forms.CharField()
-    about_yourself = forms.CharField()
+    about_yourself = forms.CharField(required=False)
+
+    def clean_birth_date(self):
+        birth_date = self.cleaned_data.get('birth_date')
+        # Проверка, что дата не в будущем
+        if birth_date > date.today():
+            raise forms.ValidationError("Дата рождения не может быть в будущем.")
+
+        # Проверка возраста (минимум 18 лет)
+        today = date.today()
+        age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+        if age < 18:
+            raise forms.ValidationError("Вам должно быть не менее 18 лет.")
+
+        return birth_date  

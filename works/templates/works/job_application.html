@@ -21,7 +21,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="id_birth_date" class="form-label required">Дата рождения</label>
-                        <input type="date" class="form-control" name="birth_date" id="id_birth_date"
+                        <input type="date" class="form-control" name="birth_date" min="1900-01-01"  max="{{ today_date }}" id="id_birth_date"
                             required>
                         {% if form.birth_date.errors %}
                             <div class="alert alert-danger alert-dismissible fade show">{{ form.birth_date.errors }}</div>
@@ -127,7 +127,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="id_about_yourself" class="form-label">Раскажите о себе (не обязательно)</label>
                         <textarea class="form-control" name="about_yourself" id="id_about_yourself" rows="3"
-                            placeholder="Чем занимаетесь, ваши увлечения, награды, титулы" required></textarea>
+                            placeholder="Чем занимаетесь, ваши увлечения, награды, титулы"></textarea>
                         {% if form.about_yourself.errors %}
                             <div class="alert alert-danger alert-dismissible fade show">{{ form.about_yourself.errors }}</div>
                         {% endif %}

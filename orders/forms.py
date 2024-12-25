@@ -10,7 +10,7 @@ class CreateOrderForm(forms.Form):
             ("1", True),
             ],
         )
-    delivery_address = forms.CharField(required=False)
+    delivery_address = forms.CharField()
     payment_on_get = forms.ChoiceField(
         choices=[
             ("0", False),
@@ -24,7 +24,7 @@ class CreateOrderForm(forms.Form):
         if not data.isdigit():
             raise forms.ValidationError("Номер телефона должен содержать только цифры")
         
-        pattern = re.compile(r'^\d{10}$')
+        pattern = re.compile(r'^\d{11}$')
         if not pattern.match(data):
             raise forms.ValidationError("Неверный формат номера")
         

@@ -4,8 +4,10 @@ from django.views.generic.edit import FormMixin
 from news.forms import CommentForm, CreateNewsForm
 from .models import News
 from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
+from django.utils.text import slugify
+from unidecode import unidecode
 # from .forms import NewsForm, CommentForm
 
 
@@ -30,6 +32,10 @@ class NewsCreateView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        if not self.object.slug:
+            self.object.slug = slugify(unidecode(self.object.title))
+            while News.objects.filter(slug=self.object.slug).exists():
+                self.object.slug = f"{slugify(unidecode(self.object.title))}-{News.objects.filter(slug__startswith=self.object.slug).count() + 1}"
         self.object.author = self.request.user  
         self.object.save()  
         return super().form_valid(form)

@@ -1,11 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.forms import ValidationError
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
+from django.db.models import F, Sum, ExpressionWrapper, DecimalField
+from django.db.models.functions import Coalesce
+
 
 from carts.models import Cart
 from orders.forms import CreateOrderForm
@@ -71,4 +73,17 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Оформление заказа'
         context['order'] = True
+
+        user = self.request.user
+        total_price = Cart.objects.filter(user=user).annotate(
+            item_total_price = ExpressionWrapper(
+                (F('product__price') + Coalesce(Sum(F('toppings__price')), 0)) * F('quantity'),
+                output_field=DecimalField()
+            )
+        ).aggregate(
+            total_price=Sum(F('item_total_price'))
+        )['total_price']
+
+        context['total_price'] = total_price
+
         return context

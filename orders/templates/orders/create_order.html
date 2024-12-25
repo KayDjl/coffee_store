@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             <label for="id_phone_number"  class="form-label">Номер телефона:</label>
                             <input type="text" name="phone_number" id="id_phone_number" class="form-control"
-                            placeholder="(000) 000-0000" aria-label="Phone" required>
+                            placeholder="8(928)-335-97-12" aria-label="Phone" required>
                             {% if form.phone_number.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{ form.phone_number.errors }}</div>
                             {% endif %}
@@ -46,7 +46,7 @@
                                 доставки*:</label>
                             <textarea class="form-control" id="id_delivery_address"
                                 value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}" 
-                                name="delivery_address" rows="2"></textarea>
+                                name="delivery_address" rows="2" required></textarea>
                             {% if form.delivery_address.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{ form.delivery_address.errors }}</div>
                             {% endif %}
@@ -90,7 +90,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="2" class="text-end">Всего: {{ carts|sum_total }}₽</td>
+                                    <td colspan="2" class="text-end">Всего: {{ total_price }}₽</td>
                                 </tr>
                             </tfoot>
                         </table>

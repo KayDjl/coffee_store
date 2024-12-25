@@ -1,10 +1,7 @@
-from django.shortcuts import render
-
 from django.http import JsonResponse
 from django.views import View
 from carts.models import Cart
 from main.models import Products, Topping
-from .utils import get_user_carts
 from .mixins import CartMixins
 
 class CartAddView(CartMixins, View):

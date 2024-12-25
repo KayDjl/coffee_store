@@ -1,10 +1,8 @@
-from django.http import Http404
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
-from django.http import JsonResponse
 from django.views.generic import DetailView, ListView
 
-from main.models import Categories, Products, Topping
+from main.models import Products, Topping
 
 
 class IndexView(ListView):
@@ -12,7 +10,6 @@ class IndexView(ListView):
     template_name = 'main/index.html'
     context_object_name = "main"
     paginate_by = 8
-    allow_empty = False
     slug_url_kwarg = "category_slug"
 
 
@@ -25,7 +22,7 @@ class IndexView(ListView):
         else:
             goods = super().get_queryset().filter(category__slug=category_slug)
             if not goods.exists():
-                raise Http404()
+                return goods
         if order_by and order_by != 'default':
             goods = goods.order_by(order_by)
 

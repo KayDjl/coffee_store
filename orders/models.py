@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models import F, Sum, FloatField
 from main.models import Products, Topping
 from users.models import User
 
@@ -9,10 +9,6 @@ class OrderitemQueryset(models.QuerySet):
     def total_price(self):
          return sum(item.products_price() for item in self)
     
-    def total_quantity(self):
-        if self:
-            return sum(cart.quantity for cart in self)
-        return 0
 
 
 class Order(models.Model):
@@ -20,7 +16,7 @@ class Order(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заказа")
     phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
-    delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
+    delivery_address = models.TextField(verbose_name="Адрес доставки")
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
     status = models.CharField(max_length=50, default="В обработке", verbose_name="Статус заказа")
@@ -55,6 +51,9 @@ class OrderItem(models.Model):
     def products_price(self):
         toppings_price = sum(topping.price for topping in self.toppings.all())
         return round((self.price + toppings_price) * self.quantity, 2)
+
     
     def __str__(self):
-        return f"Товар {self.name} | Заказ № {self.order.pk}"
+        if self.name:
+            return f"Товар {self.name} | Заказ № {self.order.pk}"
+        return f"Товар без названия | Заказ № {self.order.pk}"
