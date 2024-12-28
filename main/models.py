@@ -26,7 +26,7 @@ class Products(models.Model):
     fats = models.DecimalField(default=0.0, max_digits=5, decimal_places=1, verbose_name="Жиры")
     carb = models.DecimalField(default=0.0, max_digits=5, decimal_places=1, verbose_name="Углеводы")
     price = models.DecimalField(default=0.00, max_digits=7, decimal_places=2, verbose_name="Цена")
-    category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, verbose_name="Категория")
+    category = models.ForeignKey(to=Categories, on_delete=models.SET_DEFAULT, verbose_name="Категория", default="Неизвестная категория")
 
     class Meta:
         db_table = "product"
@@ -57,7 +57,7 @@ class Topping(models.Model):
     fats = models.DecimalField(default=0.00, max_digits=5, decimal_places=1, verbose_name="Жиры")
     carb = models.DecimalField(default=0.00, max_digits=5, decimal_places=1, verbose_name="Углеводы")
     price = models.DecimalField(default=0.00, max_digits=7, decimal_places=2, verbose_name="Цена")
-    types = models.ForeignKey(to=TypeTopping, on_delete=models.CASCADE, verbose_name="Тип добавки")
+    types = models.ForeignKey(to=TypeTopping, on_delete=models.SET_DEFAULT, verbose_name="Тип добавки", default="Неизвестный тип добавки")
 
     class Meta: 
         db_table = "topping"

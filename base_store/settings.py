@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ky-hl5pm3e)de2b)v83l11&&0af60*-&=!#-*+fbzol4%9_w-)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,11 +88,11 @@ WSGI_APPLICATION = 'base_store.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Coffee_house',
-        'USER': 'Coffee_house',
-        'PASSWORD': 'serg2404za',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('DATABASES_NAME'),
+        'USER': config('DATABASES_USER'),
+        'PASSWORD': config('DATABASES_PASSWORD'),
+        'HOST': config('DATABASES_HOST'),
+        'PORT': config('DATABASES_PORT', cast=int),
     }
 }
 

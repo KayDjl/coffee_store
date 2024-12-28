@@ -36,5 +36,10 @@ class JobApplication(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name="Статус заявки")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата подачи заявки")
 
+    class Meta():
+        verbose_name = "Заявку на работу"
+        verbose_name_plural = "Заявки на работу"
+        ordering = ("id", )
+
     def __str__(self):
         return f"Заявка от {self.full_name} ({self.status})"

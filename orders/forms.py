@@ -10,13 +10,24 @@ class CreateOrderForm(forms.Form):
             ("1", True),
             ],
         )
-    delivery_address = forms.CharField()
+    delivery_address = forms.CharField(required=False)
     payment_on_get = forms.ChoiceField(
         choices=[
-            ("0", False),
-            ("1", True),
+            ("0", "Оплата по карте"),
+            ("1", "Наличными/картой при получении"),
             ],
         )
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        requires_delivery = cleaned_data.get('requires_delivery')
+        delivery_address = cleaned_data.get('delivery_address')
+        
+        if requires_delivery == '1' and not delivery_address:
+            self.add_error('delivery_address', 'Адрес доставки обязателен при выборе доставки.')
+        return cleaned_data
+    
+
 
     def clean_phone_number(self):
         data = self.cleaned_data['phone_number']
