@@ -1,5 +1,6 @@
 from django.db import models
-from django.db.models import F, Sum, FloatField
+from django.db.models import F, Sum, DecimalField, ExpressionWrapper
+from django.db.models.functions import Coalesce
 from main.models import Products, Topping
 from users.models import User
 
@@ -7,7 +8,14 @@ from users.models import User
 class OrderitemQueryset(models.QuerySet):
     
     def total_price(self):
-         return sum(item.products_price() for item in self)
+        total_price = self.annotate(
+        item_total_price = ExpressionWrapper(
+            (F('product__price') + Coalesce(Sum(F('toppings__price')), 0)) * F('quantity'),
+            output_field=DecimalField())).aggregate(
+            total_price=Sum(F('item_total_price'))
+        )['total_price']
+    
+        return total_price
     
 
 
@@ -16,7 +24,7 @@ class Order(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания заказа")
     phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
     requires_delivery = models.BooleanField(default=False, verbose_name="Требуется доставка")
-    delivery_address = models.TextField(verbose_name="Адрес доставки")
+    delivery_address = models.TextField( blank=True, null=True, verbose_name="Адрес доставки")
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
     status = models.CharField(max_length=50, default="В обработке", verbose_name="Статус заказа")

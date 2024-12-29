@@ -78,17 +78,4 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Оформление заказа'
         context['order'] = True
-
-        user = self.request.user
-        total_price = Cart.objects.filter(user=user).annotate(
-            item_total_price = ExpressionWrapper(
-                (F('product__price') + Coalesce(Sum(F('toppings__price')), 0)) * F('quantity'),
-                output_field=DecimalField()
-            )
-        ).aggregate(
-            total_price=Sum(F('item_total_price'))
-        )['total_price']
-
-        context['total_price'] = total_price
-
         return context
